@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="ParticipantGroundCenter" default="compiler" basedir=".">
+	<property file="eosbuild.properties"/>
+	<property file="BuildLog.properties"/>
+	<mkdir dir=""/>
+	
+	<mkdir dir="${project.root}\temp.folder\@dot.bin\com.cmcc.participant.ground"/>
+	
+	<!-- Compiler settings. -->
+	<property name="javacFailOnError" value="true"/>
+	<property name="javacDebugInfo" value="on"/>
+	<property name="javacVerbose" value="false"/>
+	<property name="logExtension" value=".log"/>
+	<property name="compilerArg" value=""/>
+	<property name="javacSource" value="1.5"/>
+	<property name="javacTarget" value="1.5"/>
+	<property name="javacEncoding" value="UTF-8"/>
+	<path id="path_bootclasspath">
+		<fileset dir="${java.home}/lib">
+			<include name="*.jar"/>
+		</fileset>
+	</path>
+
+	<property name="bootclasspath" refid="path_bootclasspath"/>
+	<property name="bundleJavacSource" value="${javacSource}"/>
+	<property name="bundleJavacTarget" value="${javacTarget}"/>
+	<property name="bundleJavacEncoding" value="${javacEncoding}"/>
+	<property name="bundleBootClasspath" value="${bootclasspath}"/>
+
+	<target name="init">
+		<property name="build.result.folder" value="${basedir}"/>
+		<property name="temp.folder" value="${basedir}\temp.folder"/>
+	</target>
+
+	<taskdef name="eoscompiler"  classname="com.primeton.studio.assembly.core.task.ModelFactoryRegistryTask" >
+		<classpath>
+			<fileset dir="${eostools.plugins.dir}\com.primeton.studio.server.library_7.1.4.0">
+					<include name="**/*.jar"/>
+			</fileset>
+			<fileset dir="${eostools.plugins.dir}\com.primeton.studio.library_5.1.4.0">
+					<include name="**/*.jar"/>
+			</fileset>
+			<fileset dir="${eostools.plugins.dir}\com.primeton.studio.runtime_5.1.4.0">
+					<include name="**/*.jar"/>
+			</fileset>
+			<fileset dir="${eostools.plugins.dir}\com.primeton.studio.workflow.library_7.0.1.0">
+					<include name="**/*.jar"/>
+			</fileset>
+
+			<pathelement location="${eostools.plugins.dir}\com.primeton.sca_5.1.4.0.jar" />
+			<pathelement location="${eostools.plugins.dir}\com.primeton.studio.assembly.core_7.1.4.0.jar" />
+			<pathelement location="${eostools.plugins.dir}\com.primeton.studio.component.core_7.1.4.0.jar" />
+			<pathelement location="${eostools.plugins.dir}\com.primeton.studio.sca.core_7.1.4.0.jar" />
+			<pathelement location="${eostools.plugins.dir}\com.primeton.studio.wsdl.core_5.1.4.0.jar" />
+			<pathelement location="${eostools.plugins.dir}\com.primeton.studio.component.java.core_7.1.4.0.jar" />
+			<pathelement location="${eostools.plugins.dir}\com.primeton.studio.entity.core_7.1.4.0.jar" />
+			<pathelement location="${eostools.plugins.dir}\com.primeton.studio.xsd.core_5.1.4.0.jar" />
+			<pathelement location="${eostools.plugins.dir}\com.primeton.studio.pageflow.core_7.1.4.0.jar" />
+			<pathelement location="${eostools.plugins.dir}\com.primeton.studio.runtime_5.1.4.0" />
+			<pathelement location="${eostools.plugins.dir}\com.primeton.studio.sql.core_7.1.4.0.jar" />
+			<pathelement location="${eostools.plugins.dir}\com.primeton.emf.core_5.1.4.0.jar" />
+			<pathelement location="${eostools.plugins.dir}\com.primeton.studio.core_5.1.4.0.jar" />
+			<pathelement location="${eostools.plugins.dir}\com.primeton.studio.biz.core_7.1.4.0.jar" />
+			<pathelement location="${eostools.plugins.dir}\com.primeton.studio.jsp.core_7.1.4.0.jar" />
+			<pathelement location="${eostools.plugins.dir}\com.primeton.studio.workflow.core_7.0.1.0.jar" />
+			<pathelement location="${eostools.plugins.dir}\com.primeton.studio.workflow.business.core_7.0.1.0.jar" />
+			<pathelement location="${eostools.plugins.dir}\com.primeton.studio.spring.core_7.1.4.0.jar" />
+			<pathelement location="${eostools.plugins.dir}\com.primeton.studio.spring.component.core_7.1.4.0.jar" />
+			<pathelement location="${eostools.plugins.dir}\com.primeton.studio.ear.core_7.1.4.0" />
+			
+			
+			<pathelement location="${eclipse.home}\plugins\org.eclipse.equinox.common_3.6.200.v20130402-1505.jar" />
+			<pathelement location="${eclipse.home}\plugins\org.eclipse.equinox.preferences_3.5.100.v20130422-1538.jar" />
+			<pathelement location="${eclipse.home}\plugins\org.eclipse.equinox.registry_3.5.301.v20130717-1549.jar" />
+			<pathelement location="${eclipse.home}\plugins\org.eclipse.core.runtime_3.9.100.v20131218-1515.jar" />
+			<pathelement location="${eclipse.home}\plugins\org.eclipse.osgi_3.9.1.v20140110-1610.jar" />
+			<pathelement location="${eclipse.home}\plugins\org.eclipse.core.resources_3.8.101.v20130717-0806.jar" />
+			<pathelement location="${eclipse.home}\plugins\org.eclipse.core.jobs_3.5.300.v20130429-1813.jar" />
+			<pathelement location="${eclipse.home}\plugins\org.eclipse.jdt.core_3.9.2.v20140114-1555.jar" />
+			<pathelement location="${eclipse.home}\plugins\org.apache.xerces_2.9.0.v201101211617.jar" />
+			
+
+			
+			<pathelement location="${wtp.plugins.dir}\org.eclipse.wst.wsdl_1.2.300.v201109010430.jar" />
+			
+
+
+		
+			<pathelement location="${project.root}\temp.folder\@dot.bin\com.cmcc.participant.ground" />
+		
+
+			
+			<pathelement path="D:\work\cmcc-bps4\ide\eclipse\workspace\ParticipantGroundCenter\eos-web\WEB-INF\lib\wlthint3client-12.2.1.3.0.jar"/>
+	
+			<pathelement path="D:\work\cmcc-bps4\ide\eclipse\workspace\ParticipantGroundCenter\eos-web\WEB-INF\lib\bps-server-7.0.1.0.jar"/>
+	
+
+		</classpath>
+	</taskdef>
+
+	<target name="compiler" depends="init">
+	
+		<ant antfile="build.xml" target="build.com.cmcc.participant.ground"/>
+	
+		<eoscompiler targetDir="${temp.folder}\@dot.bin" logFile="${temp.folder}\log.txt" level="ignore">
+			<factory className="com.primeton.studio.entity.core.DatasetModelFactory" priority="100">
+			</factory>
+			<factory className="com.primeton.studio.xsd.core.XSDModelFactory" priority="100">
+			</factory>
+			<factory className="com.primeton.studio.sql.core.NamingSqlModelFactory" priority="100">
+			</factory>
+			<factory className="com.primeton.studio.pageflow.core.PfModelFactory" priority="100">
+			</factory>
+			<factory className="com.primeton.studio.biz.core.BizModelFactory" priority="100">
+			</factory>
+			<factory className="com.primeton.studio.component.java.core.bizlet.BizletModelFactoryForAssemble" priority="100">
+			</factory>
+			<factory className="com.primeton.studio.sca.core.CompositeModelFactory" priority="100">
+			</factory>
+			<factory className="com.primeton.studio.workflow.core.WorkFlowModelFactory" priority="100">
+			</factory>
+			<factory className="com.primeton.studio.wsdl.core.WSDLModelFactory" priority="100">
+			</factory>
+			<factory className="com.primeton.studio.component.core.ComponentTypeModelFactory" priority="80">
+			</factory>
+			<factory className="com.primeton.studio.component.core.EOSComponentTypeModelFactory" priority="100">
+			</factory>
+			<factory className="com.primeton.studio.spring.core.SpringModelFactory" priority="100">
+			</factory>
+			<creator className="com.primeton.emf.component.core.index.ServiceIndexKeyCreator" id="service">
+			</creator>
+			<creator className="com.primeton.studio.biz.core.index.BizIndexKeyCreator" id="biz">
+			</creator>
+			<creator className="com.primeton.emf.component.core.index.EOSComponentIndexKeyCreator" id="eos_component">
+			</creator>
+			<creator className="com.primeton.emf.component.core.index.CompositeIndexKeyCreator" id="composite">
+			</creator>
+			<creator className="com.primeton.emf.component.core.index.WSDLIndexKeyCreator" id="wsdl">
+			</creator>
+			<creator className="com.primeton.studio.component.java.core.index.BizletClassIndexKeyCreator" id="bizlet_class">
+			</creator>
+			<creator className="com.primeton.studio.component.java.core.index.BizletMethodIndexKeyCreator" id="bizlet_method">
+			</creator>
+			<creator className="com.primeton.studio.component.java.core.index.JavaClassIndexKeyCreator" id="java_class">
+			</creator>
+			<creator className="com.primeton.studio.component.java.core.index.JavaMethodIndexKeyCreator" id="java_method">
+			</creator>
+			<creator className="com.primeton.studio.entity.core.index.DatasetIndexKeyCreator" id="dataset">
+			</creator>
+			<creator className="com.primeton.studio.entity.core.index.EntityIndexKeyCreator" id="entity">
+			</creator>
+			<creator className="com.primeton.studio.xsd.core.index.XSDIndexKeyCreator" id="xsd">
+			</creator>
+			<creator className="com.primeton.studio.jsp.core.index.PageResourceIndexKeyCreator" id="page_resource">
+			</creator>
+			<creator className="com.primeton.studio.pageflow.core.index.PageflowIndexKeyCreator" id="page_flow">
+			</creator>
+			<creator className="com.primeton.studio.spring.component.core.SpringBeanIndexKeyCreator" id="springBean">
+			</creator>
+			<creator className="com.primeton.studio.spring.component.core.SpringFileIndexKeyCreator" id="springFile">
+			</creator>
+
+			
+			<library path="FoundationLibrary#com.primeton.studio.workbench" location="${eostools.plugins.dir}\com.primeton.studio.workbench.config_7.1.4.0/lib/server-eos-foundation.ecd"/>
+				
+			<library path="WorkflowLibrary#com.primeton.studio.workflow.ui4eos" location="${eostools.plugins.dir}\com.primeton.studio.workflow.ui4eos_7.0.1.0/lib/bps-user-component.ecd"/>
+				
+			<library path="RichWebLibrary#com.primeton.studio.workbench" location="${eostools.plugins.dir}\com.primeton.studio.workbench.config_7.1.4.0/lib/server-eos-richweb.ecd"/>
+				
+			<project path="${project.root}" >
+			</project>
+		</eoscompiler>
+
+	
+		<ant antfile="build.xml" target="build.contribution.jar">
+			<property name="contribution" value="com.cmcc.participant.ground"/>
+		</ant>
+	
+
+		<ant antfile="build.xml" target="build.contribution.ecd"/>
+	</target>
+
+	<target name="build.contribution.ecd" >
+		<jar destfile="${temp.folder}\${project.name}.ecd">
+			<fileset dir="${temp.folder}\@dot.ecd"/>
+			<fileset dir="${project.root}" includes="**/eos-web/**"/>
+		</jar>
+	</target>
+
+	<target name="build.contribution.jar" >
+		<manifest file="${temp.folder}/@dot.bin/${contribution}/META-INF/MANIFEST.MF" mode="update">
+		</manifest>
+
+		<jar destfile="${temp.folder}/@dot.ecd/${contribution}.jar" manifestencoding="UTF-8" manifest="${temp.folder}/@dot.bin/${contribution}/META-INF/MANIFEST.MF">
+			<fileset dir="${temp.folder}/@dot.bin/${contribution}"/>
+		</jar>
+	</target>
+	<target name="build.com.cmcc.participant.ground" depends="init">
+		<delete dir="${temp.folder}/@dot.bin/com.cmcc.participant.ground"/>
+		<mkdir dir="${temp.folder}/@dot.bin/com.cmcc.participant.ground"/>
+		<mkdir dir="${temp.folder}/@dot.ecd/"/>
+		<path id="@dot.classpath">
+			<pathelement path="./lib/bizlet_annotation.jar"/>
+			<pathelement location="${eclipse.home}\plugins\org.junit4_4.1.0.1\junit-4.1.jar" />
+
+			<fileset dir="${eostools.plugins.dir}\com.primeton.studio.server.library_7.1.4.0">
+					<include name="**/*.jar"/>
+			</fileset>
+			<fileset dir="${eostools.plugins.dir}\com.primeton.studio.library_5.1.4.0">
+					<include name="**/*.jar"/>
+			</fileset>
+			<fileset dir="${eostools.plugins.dir}\com.primeton.studio.runtime_5.1.4.0">
+					<include name="**/*.jar"/>
+			</fileset>
+			<fileset dir="${eostools.plugins.dir}\com.primeton.studio.workflow.library_7.0.1.0">
+					<include name="**/*.jar"/>
+			</fileset>
+
+			<pathelement path="temp.folder\@dot.bin\com.primeton.eos.richweb"/>
+			<pathelement path="temp.folder\@dot.bin\com.eos.foundation"/>
+			<pathelement path="temp.folder\@dot.bin\com.eos.workflow"/>
+	
+			<pathelement path="D:\work\cmcc-bps4\ide\eclipse\workspace\ParticipantGroundCenter\eos-web\WEB-INF\lib\wlthint3client-12.2.1.3.0.jar"/>
+	
+			<pathelement path="D:\work\cmcc-bps4\ide\eclipse\workspace\ParticipantGroundCenter\eos-web\WEB-INF\lib\bps-server-7.0.1.0.jar"/>
+	
+		</path>
+
+		<!-- compile the source code -->
+		<javac destdir="${temp.folder}/@dot.bin/com.cmcc.participant.ground" failonerror="${javacFailOnError}" 
+			verbose="${javacVerbose}" debug="${javacDebugInfo}" includeAntRuntime="no" 
+			bootclasspath="${bundleBootClasspath}" encoding="${bundleJavacEncoding}"
+			source="${bundleJavacSource}" target="${bundleJavacTarget}">
+			<compilerarg line="${compilerArg}" compiler="${build.compiler}"/>
+			<classpath refid="@dot.classpath" />
+			<src path="com.cmcc.participant.ground/src/" />
+			
+			<compilerarg line="-log '${temp.folder}/@dot.bin/com.cmcc.participant.ground${logExtension}'" compiler="${build.compiler}"/>
+		</javac>
+		<!-- Copy necessary resources -->
+		<copy todir="${temp.folder}/@dot.bin/com.cmcc.participant.ground" failonerror="true" overwrite="false">
+			
+			<fileset dir="com.cmcc.participant.ground/src">
+				<exclude name="**/*.java, **/package.htm*,**/MATA-INF/sca-contribution.xml"/>
+				<exclude name="**/*.SpringXml"/>
+				<exclude name="**/*.bizlet"/>
+				<exclude name="**/*.bizx"/>
+				<exclude name="**/*.bpsdirx"/>
+				<exclude name="**/*.bpsrelyx"/>
+				<exclude name="**/*.bpsresx"/>
+				<exclude name="**/*.componentType"/>
+				<exclude name="**/*.compositex"/>
+				<exclude name="**/*.datasetx"/>
+				<exclude name="**/*.eosComponentType"/>
+				<exclude name="**/*.flowx"/>
+				<exclude name="**/*.java"/>
+				<exclude name="**/*.namingsqlx"/>
+				<exclude name="**/*.workflowx"/>
+				<exclude name="**/*.wsdl"/>
+				<exclude name="**/*.xsd"/>
+				
+			</fileset>
+
+			
+		</copy>
+
+	</target>
+	<target name="clean" depends="init" description="Clean the EOS Project: ${project.name} of all the zips, jars and logs created.">
+		<delete dir="${temp.folder}"/>
+	</target>
+
+</project>

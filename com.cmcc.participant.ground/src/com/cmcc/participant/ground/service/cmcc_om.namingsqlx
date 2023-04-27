@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- author:YunTao.Li -->
+<sqlMap>
+    <parameterMap class="commonj.sdo.DataObject" id="parameterMap">
+        <parameter javaType="date" jdbcType="DATE" property="dateType"/>
+    </parameterMap>
+    <resultMap class="commonj.sdo.DataObject" id="resultMap">
+        <result column="TYPEID" javaType="string" property="typeId"/>
+    </resultMap>
+      <parameterMap class="com.cmcc.participant.ground.dataset.CMCCUserDataset.WfpAfRole" id="parameterMap">
+        <parameter javaType="date" jdbcType="DATE" property="dateType"/>
+    </parameterMap>    
+     <resultMap class="com.cmcc.participant.ground.dataset.CMCCUserDataset.WfpAfRole" id="queryRole">
+        <result column="RO_ROLE_ID" javaType="string" property="roRoleId"/>
+        <result column="RO_PROCESSINSTID" javaType="string" property="roProcessinstid"/>
+        <result column="RO_ROLE_NAME" javaType="string" property="roRoleName"/>
+        <result column="RO_TENANTID" javaType="string" property="roTenantid"/>
+        <result column="RO_CREATETIME" javaType="string" property="roCreatetime"/>
+        <result column="RO_BUSINESS_SYSTEM" javaType="string" property="roBusinessSystem"/>
+        <result column="RO_ROLESTATE" javaType="string" property="roRolestate"/>
+        <result column="ATTRIBUTE1" javaType="string" property="attribute1"/>
+        <result column="ATTRIBUTE2" javaType="string" property="attribute2"/>
+        <result column="ATTRIBUTE3" javaType="string" property="attribute3"/>
+        <result column="ATTRIBUTE4" javaType="string" property="attribute4"/>
+        <result column="ATTRIBUTE5" javaType="string" property="attribute5"/>
+        <result column="PO_REASON" javaType="string" property="poReason"/>
+        <result column="RO_ID" javaType="string" property="roId"/>  
+    </resultMap>
+    <!--获得所有用户，本地用户与接口用户-->
+    <select id="getRole" parameterClass="java.util.HashMap" resultMap="queryRole">
+		SELECT
+			*
+		FROM
+			WFP_AF_ROLE A
+		WHERE
+			A.RO_ROLESTATE = '1'
+	<isNotNull prepend="AND" property="TANENTID">
+		A.RO_TENANTID =  #TANENTID#
+	</isNotNull>
+		ORDER BY
+			A.RO_ROLE_NAME ASC	
+    </select>    
+    
+    <!--获得所有用户，本地用户与接口用户-->
+    <select id="getAllUsers" parameterClass="java.util.HashMap" resultClass="commonj.sdo.DataObject">
+    	select distinct t1.pm_person_id as "userId",
+		       t1.pm_person_name as "userName",
+		       'person' as "userType"
+		  from WFP_AF_PERSONMANAGEMENT t1
+		union all
+		select t2.user_account as "userId",
+		       t2.user_name as "userName",
+		       'user' as "userType"
+		  from WFP_AF_USERINFO t2
+    </select>
+    <!--获得所有机构只查询外部机构-->
+    <select id="getAllOrganizations" parameterClass="java.util.HashMap" resultClass="commonj.sdo.DataObject">
+		select t1.org_code as "orgcode",
+		       t1.org_name as "orgname"
+		  from WFP_AF_ORGANIZATION t1
+    </select>
+    
+</sqlMap>

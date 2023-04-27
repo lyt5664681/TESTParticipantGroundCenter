@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry exported="true" kind="lib" path="eos-web/WEB-INF/lib/wlthint3client-12.2.1.3.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="eos-web/WEB-INF/lib/bps-server-7.0.1.0.jar"/>
+	<classpathentry exported="true" kind="con" path="com.primeton.studio.workflow.bpsPath"/>
+	<classpathentry exported="true" kind="con" path="com.primeton.studio.workbench.serverPath"/>
+	<classpathentry exported="true" kind="con" path="com.primeton.studio.workbench.libraries"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry exported="true" kind="con" path="com.primeton.studio.workbench.classPath"/>
+	<classpathentry excluding="**/**.SpringXml|**/**.bizlet|**/**.bizx|**/**.bpsdirx|**/**.bpsrelyx|**/**.bpsresx|**/**.componentType|**/**.compositex|**/**.datasetx|**/**.eosComponentType|**/**.flowx|**/**.namingsqlx|**/**.workflowx|**/**.wsdl|**/**.xsd|**/.copyarea.db" kind="src" output="com.cmcc.participant.ground/bin" path="com.cmcc.participant.ground/src"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/cmcc_bpm"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
